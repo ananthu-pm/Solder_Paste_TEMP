@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solder Paste Storage Environment Monitoring</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js and Date adapter for time scale -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+</head>
+<body class="light-theme">
+    <header>
+        <div class="logo-container">
+            <img src="/logo.png" alt="L&T Logo" id="company-logo" onerror="this.onerror=null; this.src=''; this.alt='L&T Logo Missing'; this.style.color='#fff';">
+        </div>
+        <div class="title-container">
+            <h1>Solder Paste Storage Monitoring</h1>
+            <p class="subtitle">Real-Time Environment Dashboard</p>
+        </div>
+        <div class="header-right" style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div id="connection-status" class="status-indicator disconnected">
+                    <span class="dot"></span> <span id="status-text">Connecting...</span>
+                </div>
+                <button id="theme-btn" title="Toggle Dark Theme" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; padding: 0; outline: none;">🌙</button>
+            </div>
+            <div id="datetime"></div>
+        </div>
+    </header>
+
+    <div class="controls" style="padding: 10px 30px; border-bottom: 1px solid var(--border-color);">
+        <h3 style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Viewing: Last 24 Hours</h3>
+    </div>
+
+    <main class="dashboard-layout">
+        <div class="dashboard-grid">
+        <div class="card" id="temp-card">
+            <div class="card-header">
+                <h2 style="display: flex; align-items: center;"><span style="margin-right: 8px; font-size: 1.5rem;">🌡️</span>Temperature</h2>
+                <div class="current-value">
+                    <span id="current-temp">--</span><span class="unit">°C</span>
+                </div>
+            </div>
+            <div class="alert-banner" id="temp-alert" style="display: none;">OUT OF RANGE! (Valid: 2°C - 10°C)</div>
+            <div class="chart-container">
+                <canvas id="tempChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card" id="hum-card">
+            <div class="card-header">
+                <h2 style="display: flex; align-items: center;"><span style="margin-right: 8px; font-size: 1.5rem; color: #40c4ff;">💧</span>Humidity</h2>
+                <div class="current-value">
+                    <span id="current-hum">--</span><span class="unit">%</span>
+                </div>
+            </div>
+            <div class="alert-banner" id="hum-alert" style="display: none;">OUT OF RANGE! (Valid: 30% - 65%)</div>
+            <div class="chart-container">
+                <canvas id="humChart"></canvas>
+            </div>
+        </div>
+        </div>
+
+        <div class="card table-card">
+            <div class="card-header">
+                <h2>Solder Paste Inventory</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Solder Paste Name</th>
+                            <th>Availability</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Alpha OM-353</td><td><span class="badge badge-high">12</span></td><td>R1</td></tr>
+                        <tr><td>Kester NP545</td><td><span class="badge badge-medium">8</span></td><td>R2</td></tr>
+                        <tr><td>Senju M705</td><td><span class="badge badge-low">5</span></td><td>R3</td></tr>
+                        <tr><td>Indium 8.9HF</td><td><span class="badge badge-high">15</span></td><td>R1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

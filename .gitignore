@@ -1,0 +1,13 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Database
+sensor_data.db
+*.sqlite
+*.db
+
+# OS
+.DS_Store
+Thumbs.db

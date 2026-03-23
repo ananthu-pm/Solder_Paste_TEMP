@@ -1,0 +1,18 @@
+{
+  "name": "solder-paste-dashboard",
+  "version": "1.0.0",
+  "description": "L&T Solder Paste Storage Monitoring Dashboard",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "mock": "node mock_esp32.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.13.0",
+    "moment": "^2.29.4"
+  }
+}
