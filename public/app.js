@@ -7,8 +7,6 @@ const dateDiv = document.getElementById('datetime');
 
 const currentTempEl = document.getElementById('current-temp');
 const currentHumEl = document.getElementById('current-hum');
-const tempAlert = document.getElementById('temp-alert');
-const humAlert = document.getElementById('hum-alert');
 
 // Thresholds
 const TEMP_MIN = 2;
@@ -124,7 +122,7 @@ const tempChart = new Chart(tempCtx, {
     },
     options: {
         ...commonOptions,
-        scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, title: {display: true, text: 'Temperature (°C)'} } },
+        scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, title: {display: true, text: 'Temperature (°C)'}, suggestedMin: 0, suggestedMax: 10 } },
         plugins: {
             ...commonOptions.plugins,
             annotation: {
@@ -171,7 +169,7 @@ const humChart = new Chart(humCtx, {
     },
     options: {
         ...commonOptions,
-        scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, title: {display: true, text: 'Humidity (%)'} } },
+        scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, title: {display: true, text: 'Humidity (%)'}, suggestedMin: 10, suggestedMax: 65 } },
         plugins: {
             ...commonOptions.plugins,
             annotation: {
@@ -198,23 +196,20 @@ const humChart = new Chart(humCtx, {
 let currentHoursFilter = 24;
 
 function checkThresholds(temp, hum) {
-    currentTempEl.textContent = temp.toFixed(1);
-    currentHumEl.textContent = hum.toFixed(1);
+    // Display the exact value up to 2 decimal places as sent by ESP32
+    currentTempEl.textContent = temp.toFixed(2);
+    currentHumEl.textContent = hum.toFixed(2);
 
     if (temp < TEMP_MIN || temp > TEMP_MAX) {
         currentTempEl.style.color = colorRed;
-        tempAlert.style.display = 'block';
     } else {
         currentTempEl.style.color = colorGreen;
-        tempAlert.style.display = 'none';
     }
 
     if (hum < HUM_MIN || hum > HUM_MAX) {
         currentHumEl.style.color = colorRed;
-        humAlert.style.display = 'block';
     } else {
         currentHumEl.style.color = colorGreen;
-        humAlert.style.display = 'none';
     }
 }
 

@@ -40,11 +40,15 @@ app.get('/api/history', async (req, res) => {
 // HTTP endpoint for ESP32 fallback
 app.post('/api/data', async (req, res) => {
     console.log("Received POST data:", req.body);
-    let { temperature, humidity } = req.body;
+    
+    // Support various common keys an ESP32 might send
+    let body = req.body || {};
+    let rawTemp = body.temperature ?? body.temp ?? body.Temperature ?? body.t;
+    let rawHum = body.humidity ?? body.hum ?? body.Humidity ?? body.h;
 
     // Convert to numbers just in case they arrived as form-data strings
-    const tempNum = parseFloat(temperature);
-    const humNum = parseFloat(humidity);
+    const tempNum = parseFloat(rawTemp);
+    const humNum = parseFloat(rawHum);
 
     if (!isNaN(tempNum) && !isNaN(humNum)) {
         try {

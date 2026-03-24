@@ -5,8 +5,7 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node server.js",
-    "mock": "node mock_esp32.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
