@@ -16,15 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Added to support standard ESP32 POST payloads
 
-// Serve specific images based on user paths
-app.get('/logo.png', (req, res) => {
-    res.sendFile('C:\\Users\\anant\\Downloads\\Resource\\WhatsApp Image 2026-03-11 at 09.05.52-Photoroom.png');
-});
-
-app.get('/favicon.png', (req, res) => {
-    res.sendFile('C:\\Users\\anant\\Downloads\\Resource\\L&T.png');
-});
-
 // REST API for Historical Data
 app.get('/api/history', async (req, res) => {
     const hours = req.query.hours || 12;
